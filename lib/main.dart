@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:workshop/tab1.dart';
 
 void main() {
   runApp(const MyApp());
@@ -61,6 +62,10 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  String fullname = "Team InsIIT";
+  String email = "team.insiit@iitgn.ac.in";
+  int _selectedPage = 0;
+  final _pageOptions = [Tab1()];
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -70,46 +75,129 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+        drawer: Drawer(
+          elevation: 0,
+          child: ListView(
+            children: <Widget>[
+              UserAccountsDrawerHeader(
+                  currentAccountPicture: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: Text(
+                      fullname.substring(0, 1),
+                      style: TextStyle(fontSize: 35, color: Colors.black87),
+                    ),
+                  ),
+                  accountName: Text(fullname,
+                      style: TextStyle(fontSize: 20, color: Colors.white)),
+                  accountEmail: Text(email,
+                      style: TextStyle(fontSize: 15, color: Colors.white))),
+              ListTile(
+                title: const Text(
+                  "Past Orders",
+                  style: TextStyle(fontSize: 15),
+                ),
+                leading: const Icon(
+                  Icons.list,
+                ),
+                onTap: () {},
+              ),
+              ListTile(
+                  title: const Text(
+                    "My Cart",
+                    style: TextStyle(fontSize: 15),
+                  ),
+                  leading: const Icon(
+                    Icons.add_shopping_cart,
+                  ),
+                  onTap: () {}),
+              ListTile(
+                  title: const Text(
+                    "Feedback",
+                    style: TextStyle(fontSize: 15),
+                  ),
+                  leading: const Icon(
+                    Icons.feedback,
+                  ),
+                  onTap: () {}),
+              const Divider(),
+              ListTile(
+                  title: const Text(
+                    "Developers",
+                    style: TextStyle(fontSize: 15),
+                  ),
+                  leading: const Icon(
+                    Icons.account_circle,
+                  ),
+                  onTap: () {}),
+              ListTile(
+                title: const Text(
+                  "Sign Out",
+                  style: TextStyle(fontSize: 15),
+                ),
+                leading: const Icon(Icons.power_settings_new),
+                // onTap: _signOut,
+                onTap: () {},
+              ),
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text("Food Ordering App",
+              style: TextStyle(fontSize: 18, color: Colors.white)),
+          backgroundColor: Colors.orange,
+          elevation: 1,
+          /*actions: <Widget>[
+            InkWell(
+                  onTap:(){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ItemCart()),
+                    );
+                  },
+                  child: Container(
+                    padding:EdgeInsets.symmetric(vertical: 20,horizontal: 15),
+                    child: Row(children: <Widget>[
+                      Icon(Icons.add_shopping_cart,size: 18,color: Colors.black,),
+                      SizedBox(width: 5,),
+                      Text("My Cart",style: TextStyle(fontSize: 15,color: Colors.black),)
+                    ],),
+                  ),
+            )
+          ],*/
+        ),
+        body: _pageOptions[_selectedPage],
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          mini: true,
+          child: Container(child: Icon(Icons.add_shopping_cart)),
+          elevation: 1,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.orange,
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedPage,
+          fixedColor: Colors.orange,
+          // backgroundColor: Colors.white,
+          items: [
+            const BottomNavigationBarItem(
+                icon: Icon(Icons.search), label: 'Explore'),
+            const BottomNavigationBarItem(
+                icon: Icon(Icons.store), label: 'All Stores'),
+            BottomNavigationBarItem(
+                icon: Stack(
+                  children: const <Widget>[
+                    Icon(Icons.shopping_cart),
+                  ],
+                ),
+                label: 'Orders'),
+          ],
+          onTap: (int index) {
+            setState(() {
+              _selectedPage = 0;
+            });
+          },
+        ));
   }
 }
