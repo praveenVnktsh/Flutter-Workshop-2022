@@ -148,24 +148,6 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontSize: 18, color: Colors.white)),
           backgroundColor: Colors.orange,
           elevation: 1,
-          /*actions: <Widget>[
-            InkWell(
-                  onTap:(){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ItemCart()),
-                    );
-                  },
-                  child: Container(
-                    padding:EdgeInsets.symmetric(vertical: 20,horizontal: 15),
-                    child: Row(children: <Widget>[
-                      Icon(Icons.add_shopping_cart,size: 18,color: Colors.black,),
-                      SizedBox(width: 5,),
-                      Text("My Cart",style: TextStyle(fontSize: 15,color: Colors.black),)
-                    ],),
-                  ),
-            )
-          ],*/
         ),
         body: _pageOptions[_selectedPage],
         floatingActionButton: FloatingActionButton(
