@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -32,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               Text(
                 "Recommended",
-                style: GoogleFonts.raleway(
+                style: GoogleFonts.inter(
                     fontWeight: FontWeight.w800,
                     fontSize: 18,
                     color: Colors.black.withAlpha(200)),
@@ -52,15 +53,102 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         Container(
-          height: 200,
-          color: Colors.black,
+          height: 250,
           child: ListView.builder(
+              physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) {
-                return Container(
-                  width: 300,
-                  color: (index % 2 == 0)
-                      ? Colors.grey.withAlpha(100)
-                      : Colors.white.withAlpha(100),
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+                  child: Container(
+                    width: 250,
+                    // color: Colors.black,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Stack(
+                            children: [
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  child: Image.network(
+                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3zMUBZuxNviR7ydYTkRhdJXUVkxenVc9IxQ&usqp=CAU')),
+                              Positioned(
+                                right: 10,
+                                child: Card(
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    elevation: 0,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                                      child: Row(
+                                        children: [
+                                          // FontAwesomeIcons(icon: FontAwesomeIcons.star),
+                                          const Icon(
+                                            FontAwesomeIcons.solidStar,
+                                            color: Colors.orange,
+                                            size: 16,
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text("4.7",
+                                              style: GoogleFonts.inter(
+                                                fontWeight: FontWeight.bold,
+                                              )),
+                                        ],
+                                      ),
+                                    )),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 8, 0, 8),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Masala Dosa",
+                                  style: GoogleFonts.raleway(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Rs. 400",
+                                      style: GoogleFonts.raleway(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                        color: darkGreen,
+                                      ),
+                                    ),
+                                    IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(
+                                          Icons.add_circle,
+                                          color: lightGreen,
+                                        ))
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 );
               },
               itemCount: 10,
@@ -254,6 +342,7 @@ class _MyHomePageState extends State<MyHomePage> {
             SlidingUpPanel(
                 maxHeight: 590.0,
                 minHeight: 470.0,
+                color: Colors.white,
                 boxShadow: [BoxShadow(color: Colors.transparent)],
                 parallaxEnabled: true,
                 parallaxOffset: .1,
@@ -263,30 +352,27 @@ class _MyHomePageState extends State<MyHomePage> {
                     topRight: Radius.circular(18.0))),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          mini: true,
-          child: Container(child: const Icon(Icons.add_shopping_cart)),
-          elevation: 1,
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.orange,
-        ),
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () {},
+        //   mini: true,
+        //   child: Container(child: const Icon(Icons.add_shopping_cart)),
+        //   elevation: 1,
+        //   backgroundColor: Colors.white,
+        //   foregroundColor: Colors.orange,
+        // ),
         bottomNavigationBar: BottomNavigationBar(
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
           currentIndex: _selectedPage,
           fixedColor: Colors.orange,
-          // backgroundColor: Colors.white,
+          backgroundColor: Colors.white,
           items: [
-            const BottomNavigationBarItem(
-                icon: Icon(Icons.search), label: 'Explore'),
-            const BottomNavigationBarItem(
-                icon: Icon(Icons.store), label: 'All Stores'),
             BottomNavigationBarItem(
-                icon: Stack(
-                  children: const <Widget>[
-                    Icon(Icons.shopping_cart),
-                  ],
-                ),
-                label: 'Orders'),
+              icon: Icon(Icons.home_sharp),
+              label: '',
+            ),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
+            BottomNavigationBarItem(icon: Icon(Icons.shopping_bag), label: ''),
           ],
           onTap: (int index) {
             setState(() {
