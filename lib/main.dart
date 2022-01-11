@@ -23,8 +23,8 @@ class _MyAppState extends State<MyApp> {
     // only for dev,
 
     SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitDown,
-      // DeviceOrientation.portraitUp,
+      // DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
     ]);
   }
 
