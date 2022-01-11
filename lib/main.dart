@@ -1,19 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// import 'package:wakelock/wakelock.dart';
 
 import 'home.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
+  void initState() {
+    super.initState();
+    // only for dev,
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      // DeviceOrientation.portraitUp,
+    ]);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -26,9 +42,9 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.orange,
+        primarySwatch: Colors.cyan,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
   }
 }

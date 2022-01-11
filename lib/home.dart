@@ -3,18 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -26,6 +15,61 @@ class _MyHomePageState extends State<MyHomePage> {
   String fullname = "Team InsIIT";
   String email = "team.insiit@iitgn.ac.in";
   int _selectedPage = 0;
+  Color alphaWhite200 = Colors.white.withAlpha(200);
+  Color lightGreen = Color(0xFF73cdbb);
+  Color darkGreen = Color(0xFF1ca3a6);
+
+  Widget getPanel() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                "Recommended",
+                style: GoogleFonts.raleway(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 18,
+                    color: Colors.black.withAlpha(200)),
+              ),
+              // TextButton(
+              //   onPressed: () {},
+              //   child:
+              // )
+              Text(
+                "See more",
+                style: GoogleFonts.comfortaa(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    color: darkGreen),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          height: 200,
+          color: Colors.black,
+          child: ListView.builder(
+              itemBuilder: (context, index) {
+                return Container(
+                  width: 300,
+                  color: (index % 2 == 0)
+                      ? Colors.grey.withAlpha(100)
+                      : Colors.white.withAlpha(100),
+                );
+              },
+              itemCount: 10,
+              scrollDirection: Axis.horizontal),
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,6 +149,11 @@ class _MyHomePageState extends State<MyHomePage> {
             Icons.hourglass_bottom,
             color: Colors.white,
           ),
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.shopping_bag_outlined, color: alphaWhite200))
+          ],
           backgroundColor: Colors.transparent,
           elevation: 0,
           // title: Text("SDFSDf"),
@@ -113,63 +162,102 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Stack(
           children: [
             Container(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 gradient: RadialGradient(
                     colors: [
                       // Color(0xf0000000),
-                      Color(0xFF73cdbb),
-                      Color(0xFF1ca3a6),
+                      lightGreen,
+                      darkGreen,
                     ],
                     radius: 1.3,
                     center: Alignment(-1, 0),
                     stops: [0.0, 1.0],
                     tileMode: TileMode.clamp),
               ),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  // ignore: prefer_const_literals_to_create_immutables
-                  children: [
-                    const SizedBox(
-                      height: 60,
-                    ),
-                    Text("Hungry? Delicious food is just a tap away.",
-                        style: GoogleFonts.raleway(
-                          fontWeight: FontWeight.bold,
-                          // fontStyle: FontStyle.italic,
-                          height: 1.5,
-                          color: Colors.white,
-                          fontSize: 23,
-                        )),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    TextField(
-                      decoration: InputDecoration(
-                          hintText: "Search for items",
-                          hintStyle: GoogleFonts.raleway(
-                              // fontStyle: FontStyle.italic,
-                              ),
-                          prefixIcon: const Icon(Icons.search),
-                          border: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Colors.white, width: 0.0),
-                              borderRadius: BorderRadius.circular(15))),
-                    ),
-                  ],
-                ),
-              ),
               height: 1000,
               width: 500,
             ),
+            Positioned(
+              right: 0,
+              top: 150,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: lightGreen.withAlpha(50),
+                  shape: BoxShape.circle,
+                ),
+                height: 100,
+                width: 100,
+              ),
+            ),
+            Positioned(
+              right: 250,
+              top: 50,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: lightGreen.withAlpha(50),
+                  shape: BoxShape.circle,
+                ),
+                height: 200,
+                width: 200,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                // ignore: prefer_const_literals_to_create_immutables
+                children: [
+                  const SizedBox(
+                    height: 60,
+                  ),
+                  Text("Hungry? Delicious food is just a tap away.",
+                      style: GoogleFonts.raleway(
+                        fontWeight: FontWeight.bold,
+                        // fontStyle: FontStyle.italic,
+                        height: 1.5,
+                        color: Colors.white,
+                        fontSize: 23,
+                      )),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  TextField(
+                    style: TextStyle(color: alphaWhite200),
+                    cursorColor: alphaWhite200,
+                    decoration: InputDecoration(
+                        focusColor: Colors.white,
+                        fillColor: const Color(0x5973cdbb),
+                        filled: true,
+                        hintText: "Search for food",
+                        hintStyle: GoogleFonts.raleway(color: alphaWhite200),
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color: alphaWhite200,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: alphaWhite200, width: 0.0),
+                            borderRadius: BorderRadius.circular(15)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Colors.white.withAlpha(255), width: 0.0),
+                            borderRadius: BorderRadius.circular(15)),
+                        border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.white, width: 0.0),
+                            borderRadius: BorderRadius.circular(15))),
+                  ),
+                ],
+              ),
+            ),
             SlidingUpPanel(
-                maxHeight: 610.0,
-                minHeight: 500.0,
+                maxHeight: 590.0,
+                minHeight: 470.0,
+                boxShadow: [BoxShadow(color: Colors.transparent)],
                 parallaxEnabled: true,
                 parallaxOffset: .1,
-                panel: Container(),
+                panel: getPanel(),
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(18.0),
                     topRight: Radius.circular(18.0))),
