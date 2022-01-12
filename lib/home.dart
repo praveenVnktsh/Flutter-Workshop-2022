@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'item.dart';
+import 'cart.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -70,6 +72,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: InkWell(
                           onTap: () {
                             // navigator here to particular item page.
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const MyItemPage()),
+                            );
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -149,7 +155,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                             ),
                                           ),
                                           IconButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(builder: (context) => const MyItemPage()),
+                                                );
+                                              },
                                               icon: Icon(
                                                 Icons.add_circle,
                                                 color: lightGreen,
@@ -216,7 +227,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   leading: const Icon(
                     Icons.add_shopping_cart,
                   ),
-                  onTap: () {}),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MyCartPage()),
+                    );
+                  }),
               ListTile(
                   title: const Text(
                     "Feedback",
@@ -256,7 +272,12 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyCartPage()),
+                  );
+                },
                 icon: Icon(Icons.shopping_bag_outlined, color: alphaWhite200))
           ],
           backgroundColor: Colors.transparent,
@@ -403,7 +424,7 @@ class _MyHomePageState extends State<MyHomePage> {
           currentIndex: _selectedPage,
           fixedColor: Colors.orange,
           backgroundColor: Colors.white,
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home_sharp),
               label: '',
