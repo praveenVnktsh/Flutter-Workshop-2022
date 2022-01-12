@@ -74,7 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             // navigator here to particular item page.
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const MyItemPage()),
+                              MaterialPageRoute(
+                                  builder: (context) => MyItemPage(index)),
                             );
                           },
                           child: Padding(
@@ -85,11 +86,25 @@ class _MyHomePageState extends State<MyHomePage> {
                               children: [
                                 Stack(
                                   children: [
-                                    ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
-                                        child: Image.network(
-                                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3zMUBZuxNviR7ydYTkRhdJXUVkxenVc9IxQ&usqp=CAU')),
+                                    Hero(
+                                        tag: index.toString(),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 100,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                fit: BoxFit.fitWidth,
+                                                image: NetworkImage(
+                                                    'https://res.cloudinary.com/swiggy/image/upload/f_auto,q_auto,fl_lossy/zy6ymtixm4vtjuhakijm'),
+                                              ),
+                                            ),
+                                          ),
+                                        )),
                                     Positioned(
                                       right: 10,
                                       child: Card(
@@ -106,17 +121,17 @@ class _MyHomePageState extends State<MyHomePage> {
                                               children: [
                                                 // FontAwesomeIcons(icon: FontAwesomeIcons.star),
                                                 const Icon(
-                                                  FontAwesomeIcons.solidStar,
+                                                  Icons.star_rounded,
                                                   color: Colors.orange,
-                                                  size: 16,
+                                                  // size: 16,
                                                 ),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
+                                                // const SizedBox(
+                                                //   width: 10,
+                                                // ),
                                                 Text("4.7",
                                                     style: GoogleFonts.inter(
                                                       fontWeight:
-                                                          FontWeight.bold,
+                                                          FontWeight.w600,
                                                     )),
                                               ],
                                             ),
@@ -158,7 +173,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                               onPressed: () {
                                                 Navigator.push(
                                                   context,
-                                                  MaterialPageRoute(builder: (context) => const MyItemPage()),
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          MyItemPage(index)),
                                                 );
                                               },
                                               icon: Icon(
@@ -230,7 +247,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const MyCartPage()),
+                      MaterialPageRoute(
+                          builder: (context) => const MyCartPage()),
                     );
                   }),
               ListTile(
@@ -384,15 +402,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20.0),
                     child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        color: Colors.white,
-                        height: 800,
-                        child: Column(
-                          children: [
-                            getPanel(),
-                            getPanel(),
-                          ],
-                        )),
+                      width: MediaQuery.of(context).size.width,
+                      color: Colors.white,
+                      height: 800,
+                      child: getPanel(),
+                    ),
                   ))
 
               // this thing slides up and down, but too complicated coz search and all gets obscured.

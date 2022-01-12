@@ -25,8 +25,8 @@ class _MyAppState extends State<MyApp> {
     // only for dev,
 
     SystemChrome.setPreferredOrientations([
-      // DeviceOrientation.portraitDown,
-      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      // DeviceOrientation.portraitUp,
     ]);
   }
 
@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
-          value: Order_proivider(),
+          value: OrderProvider(),
         ),
       ],
       child: MaterialApp(

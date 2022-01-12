@@ -15,7 +15,7 @@ class OrderItemModel {
   });
 
   Map toJson() => {
-        'item_id': this.item_id,
+        'item_id': item_id,
         'item_name': this.item_name,
         'item_quantity': this.item_quantity.toString(),
         'net_amount': this.net_amount.toString(),

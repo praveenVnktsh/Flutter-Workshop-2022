@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:workshop/order/order_model.dart';
 import 'package:http/http.dart' as http;
 
-class Order_proivider with ChangeNotifier {
+class OrderProvider with ChangeNotifier {
   List<Order> _userOrdersList = List.empty(growable: true);
 
   List<Order> get userOrderList => _userOrdersList;
