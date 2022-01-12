@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'cart.dart';
+import 'order/order_item_model.dart';
 
 class MyItemPage extends StatefulWidget {
-  int index = 0;
-  MyItemPage(int index) {
-    this.index = index;
+  OrderItemModel model = OrderItemModel();
+  MyItemPage(OrderItemModel model) {
+    this.model = model;
   }
 
   @override
@@ -72,11 +73,12 @@ class _MyItemPageState extends State<MyItemPage> {
           child: Column(
             children: [
               Hero(
-                tag: widget.index.toString(),
+                tag: widget.model.item_id,
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(20.0),
                     child: Image.network(
-                        'https://res.cloudinary.com/swiggy/image/upload/f_auto,q_auto,fl_lossy/zy6ymtixm4vtjuhakijm')),
+                      widget.model.url,
+                    )),
               ),
               Padding(
                 padding: const EdgeInsets.all(16),
@@ -84,7 +86,7 @@ class _MyItemPageState extends State<MyItemPage> {
                   children: [
                     Expanded(
                       child: Text(
-                        "Masala Dosa",
+                        widget.model.item_name,
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.w600,
                             fontSize: 25,
@@ -103,6 +105,7 @@ class _MyItemPageState extends State<MyItemPage> {
                                 if (_itemCount <= 0) {
                                   _itemCount = 0;
                                 }
+                                widget.model.item_quantity = _itemCount;
                                 setState(() {});
                               },
                               icon: const Icon(
@@ -119,6 +122,7 @@ class _MyItemPageState extends State<MyItemPage> {
                           IconButton(
                               onPressed: () {
                                 _itemCount += 1;
+                                widget.model.item_quantity = _itemCount;
                                 setState(() {});
                               },
                               icon: const Icon(
@@ -134,15 +138,28 @@ class _MyItemPageState extends State<MyItemPage> {
               Padding(
                 padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Icon(
-                      Icons.star_rounded,
-                      color: Colors.orange,
+                    Text(
+                      "Rs. " + widget.model.cost.toString(),
+                      style: GoogleFonts.raleway(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: darkGreen,
+                      ),
                     ),
-                    Text("4.7",
-                        style: GoogleFonts.inter(
-                          fontWeight: FontWeight.w600,
-                        )),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.star_rounded,
+                          color: Colors.orange,
+                        ),
+                        Text("4.7",
+                            style: GoogleFonts.inter(
+                              fontWeight: FontWeight.w600,
+                            )),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -163,8 +180,7 @@ class _MyItemPageState extends State<MyItemPage> {
                 child: Row(
                   children: [
                     Flexible(
-                      child: Text(
-                          "Masala dosa is a variation of the popular South Indian dosa, which has its origins in Tuluva Udupi cuisine of Karnataka.[1] It is made from rice, lentils, potato, fenugreek, ghee and curry leaves, and served with chutneys and sambar. It is popular in South India,[2] it can be found in all other parts of the country[3][4] and overseas.[5][6] In South India, preparation of masala dosa varies from city to city.[3] There are variations in Masala dosa like Mysore masala dosa, Rava masala dosa, Onion masala dosa, Paper masala dosa, Cheese masala dosa etc.",
+                      child: Text(widget.model.description,
                           style: GoogleFonts.inter(
                               fontWeight: FontWeight.normal,
                               fontSize: 18,

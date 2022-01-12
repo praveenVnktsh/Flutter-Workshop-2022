@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:workshop/order/order_item_model.dart';
 import 'item.dart';
 import 'cart.dart';
 
@@ -21,6 +22,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Color alphaWhite200 = Colors.white.withAlpha(200);
   Color lightGreen = Color(0xFF73cdbb);
   Color darkGreen = Color(0xFF1ca3a6);
+
+  List<OrderItemModel> items = [OrderItemModel()];
 
   Widget getPanel() {
     return Column(
@@ -55,10 +58,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         Container(
-          height: 230,
+          height: 250,
           child: ListView.builder(
               physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) {
+                OrderItemModel curItem = items[index];
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
                   child: ClipRRect(
@@ -75,7 +79,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MyItemPage(index)),
+                                  builder: (context) =>
+                                      MyItemPage(items[index])),
                             );
                           },
                           child: Padding(
@@ -87,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Stack(
                                   children: [
                                     Hero(
-                                        tag: index.toString(),
+                                        tag: curItem.item_id.toString(),
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(20.0),
@@ -95,12 +100,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                             width: MediaQuery.of(context)
                                                 .size
                                                 .width,
-                                            height: 100,
+                                            height: 150,
                                             decoration: BoxDecoration(
                                               image: DecorationImage(
                                                 fit: BoxFit.fitWidth,
-                                                image: NetworkImage(
-                                                    'https://res.cloudinary.com/swiggy/image/upload/f_auto,q_auto,fl_lossy/zy6ymtixm4vtjuhakijm'),
+                                                image:
+                                                    NetworkImage(curItem.url),
                                               ),
                                             ),
                                           ),
@@ -125,9 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   color: Colors.orange,
                                                   // size: 16,
                                                 ),
-                                                // const SizedBox(
-                                                //   width: 10,
-                                                // ),
+
                                                 Text("4.7",
                                                     style: GoogleFonts.inter(
                                                       fontWeight:
@@ -151,7 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "Masala Dosa",
+                                        curItem.item_name,
                                         style: GoogleFonts.raleway(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 18,
@@ -162,26 +165,17 @@ class _MyHomePageState extends State<MyHomePage> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            "Rs. 400",
+                                            "Rs. " + curItem.cost.toString(),
                                             style: GoogleFonts.raleway(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 16,
                                               color: darkGreen,
                                             ),
                                           ),
-                                          IconButton(
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          MyItemPage(index)),
-                                                );
-                                              },
-                                              icon: Icon(
-                                                Icons.add_circle,
-                                                color: lightGreen,
-                                              ))
+                                          Icon(
+                                            Icons.add_circle,
+                                            color: lightGreen,
+                                          )
                                         ],
                                       ),
                                     ],
@@ -196,7 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 );
               },
-              itemCount: 10,
+              itemCount: items.length,
               scrollDirection: Axis.horizontal),
         )
       ],
